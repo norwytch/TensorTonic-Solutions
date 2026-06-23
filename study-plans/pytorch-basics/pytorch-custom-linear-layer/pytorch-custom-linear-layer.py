@@ -10,8 +10,8 @@ class CustomLinear(nn.Module):
         super().__init__()
         self.weight = nn.Parameter(torch.randn(out_features, in_features))
         self.bias = nn.Parameter(torch.randn(out_features,))
-        
 
     def forward(self, x):
+        x = torch.tensor(x)
         y = x@self.weight.T + self.bias
         return y
