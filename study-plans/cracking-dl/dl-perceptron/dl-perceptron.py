@@ -4,17 +4,17 @@ def perceptron(X, y, lr=0.1, epochs=100):
     """
     Returns: Tuple of (weights as list of floats, bias as float)
     """
-    X = np.asarray(X, dtype=float)
-    y = np.asarray(y)
-
+    X = np.array(X, dtype=float)
+    y = np.array(y)
     weights = np.zeros(X.shape[1])
     bias = 0.0
-    for i in range(epochs):
-        for j in range(len(y)):                 
-            z = X[j] @ weights + bias           
-            y_hat = 1 if z >= 0 else 0
-            error = y[j] - y_hat
-            weights += lr * error * X[j]         
-            bias    += lr * error
-    
+
+    for epoch in range(epochs):
+        for xi, yi, in zip(X,y):
+            z = xi @ weights + bias
+            y_hat = np.where(z>=0, 1, 0)
+            error = yi - y_hat
+            weights += lr * error * xi
+            bias += lr * error
+
     return weights.tolist(), float(bias)
