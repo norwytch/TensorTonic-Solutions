@@ -4,18 +4,23 @@ def activate(x, method="relu"):
     """
     Returns: list (activated tensor converted via .tolist())
     """
-    x=torch.tensor(x, dtype=torch.float)
-    if method =="relu":
-        zeros=torch.zeros(x.shape)
-        x=torch.max(x,zeros)
-    elif method=="sigmoid":
-        denominator = 1 + torch.exp(-x)
-        x=1/denominator
-    elif method=="tanh":
-        numerator = torch.exp(x) - torch.exp(-x)
-        denominator = torch.exp(x) + torch.exp(-x)
-        x=torch.divide(numerator, denominator)
-    elif method=="leaky_relu":
-        x=torch.where(x<=0, x*.01, x)
+    x = torch.tensor(x, dtype=torch.float)
+    a = None
+    
+    if method=='relu':
+        zeros = torch.zeros(x.shape)
+        a = torch.max(zeros,x)
 
-    return x.tolist()
+    elif method=='sigmoid':
+        a = (1/(1+torch.exp(-x)))
+
+    elif method=='tanh':
+        numer = torch.exp(x) - torch.exp(-x)
+        denom = torch.exp(x) + torch.exp(-x)
+        a = torch.divide(numer,denom)
+
+    elif method=='leaky_relu':
+        x = torch.where(x<=0, .01*x, x)
+        a = x
+
+    return a.tolist()
