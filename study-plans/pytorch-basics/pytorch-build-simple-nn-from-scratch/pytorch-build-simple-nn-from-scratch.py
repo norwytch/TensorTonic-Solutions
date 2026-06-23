@@ -9,9 +9,9 @@ class SimpleNet(nn.Module):
     def __init__(self, in_features, hidden_size, out_features):
         super().__init__()
         self.fc1 = nn.Linear(in_features, hidden_size)
-        self.relu = nn.ReLU()
         self.fc2 = nn.Linear(hidden_size, out_features)
-        
+        self.relu = nn.ReLU()
+        pass
 
     def forward(self, x):
         x = self.fc1(x)
